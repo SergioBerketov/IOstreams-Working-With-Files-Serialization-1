@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
     static String[] products = { "Хлеб", "Молоко", "Гречка" };
     static int[] prices = { 30, 50, 80 };
-    static File basketFile = new File("basket.txt");
+    static File basketFile = new File("basket.json");
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
@@ -14,7 +14,7 @@ public class Main {
         Basket basket = null;
 
         if (basketFile.exists()) {
-            basket = Basket.loadFromTxtFile(basketFile);
+            basket = Basket.loadFromJSONFile(basketFile);
         } else {
             basket = new Basket(products, prices);
         }
@@ -26,10 +26,13 @@ public class Main {
                     products[i] + " " + prices[i] + " руб." + "\n");
         }
 
+        ClientLog log = new ClientLog();
+
         while (true) {
             System.out.println("Выберите товар и количество или введите `end`" + "\n");
             String input = scanner.nextLine(); // 1 5
             if ("end".equals(input)) {
+                log.exportAsCSV(new File("log.csv"));
                 break;
             }
 
@@ -39,7 +42,8 @@ public class Main {
             int productCount = Integer.parseInt(parts[1]);
 
             basket.addToCart(numberOfProduct, productCount);
-            basket.saveTxt(basketFile);
+            basket.saveJSON(basketFile);
+            log.log(numberOfProduct, productCount);
 
             continue;
         }
