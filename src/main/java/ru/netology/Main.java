@@ -18,7 +18,7 @@ public class Main {
         XMLReader settings = new XMLReader(new File("shop.xml"));
         File loadFile = new File(settings.loadFile);
         File saveFile = new File(settings.loadFile);
-        File logFile = new File(settings.loadFile);
+        File logFile = new File(settings.logFile);
 
         //эту логику лучше вынести в отдельный метод
         Basket basket = createBasket(loadFile, settings.isLoad, settings.loadFormat);
