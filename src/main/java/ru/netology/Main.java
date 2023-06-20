@@ -20,6 +20,8 @@ public class Main {
         File saveFile = new File(settings.loadFile);
         File logFile = new File(settings.logFile);
 
+
+
         //эту логику лучше вынести в отдельный метод
         Basket basket = createBasket(loadFile, settings.isLoad, settings.loadFormat);
         ClientLog log = new ClientLog();
